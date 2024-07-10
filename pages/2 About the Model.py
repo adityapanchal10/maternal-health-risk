@@ -27,13 +27,24 @@ def load_model():
     return model
 
 # Display results
-def display_results(model, X_test, y_test):
-    y_pred = model.predict(X_test)
+def display_results(model, X_train, y_train, X_test, y_test):
+    y_pred_test = model.predict(X_test)
+    y_pred_train = model.predict(X_train)
     
-    accuracy = accuracy_score(y_test, y_pred)
-    cm = confusion_matrix(y_test, y_pred)
+    accuracy_test = accuracy_score(y_test, y_pred_test)
+    accuracy_train = accuracy_score(y_train, y_pred_train)
+    cm = confusion_matrix(y_test, y_pred_test)
     
-    st.write(f"**Accuracy**: {accuracy*100:.4f}%")
+    accuracy_df = pd.DataFrame({
+        "Split": ["Train", "Test"],
+        "Accuracy": [f"{accuracy_train*100:.2f}%", f"{accuracy_test*100:.2f}%"],
+        "# samples": [f"{len(y_train)}", f"{len(y_test)}"]
+    })
+    st.write("**Accuracy:**")
+    accuracy_df = accuracy_df.style.set_properties(**{'text-align': 'left'})
+    accuracy_df.set_table_styles([dict(selector='th', props=[('text-align', 'left')])])
+    st.dataframe(accuracy_df, width=500, hide_index=True)
+
     fig = go.Figure(data=go.Heatmap(
                     z=cm[::-1],
                     x=['High Risk', 'Low Risk', 'Medium Risk'],  
@@ -76,7 +87,7 @@ def main():
         
     st.write("\n\n\n")
     st.write("### ➾ Model Performance")
-    display_results(model, X_test, y_test)
+    display_results(model, X_train, y_train, X_test, y_test)
     st.write("One can see that the accuracy is quite good.")
     st.write("However, the accuracy metric only gives the overall corectness of the model.")
     st.write("In order to get a better understanding of the model's performance across different classes, the confusion matrix is more valueable.")
