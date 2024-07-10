@@ -29,6 +29,10 @@ def main():
     # Page Title
     st.markdown("## About the Dataset")
     st.title("Maternal Health Risk Dataset")
+    st.logo(
+        "./love.png",
+        icon_image="./heartbeat.gif",
+    )
     st.write("\n\n\n")
 
     st.warning('''If the mother presents a significant symptom not considered

@@ -64,6 +64,10 @@ def display_results(model, X_train, y_train, X_test, y_test):
 def main():
     st.write("## About the Model")
     st.title("Maternal Health Risk Prediction")
+    st.logo(
+        "./love.png",
+        icon_image="./heartbeat.gif",
+    )
     st.write("\n\n")
     st.write("### ➾ Model Training and Evaluation")
     st.write("**Model**: [Random Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)")

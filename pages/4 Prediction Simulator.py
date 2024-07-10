@@ -53,6 +53,10 @@ def main():
     
     st.write("## Prediction Simulator")
     st.title("Maternal Health Risk Prediction")
+    st.logo(
+        "./love.png",
+        icon_image="./heartbeat.gif",
+    )
     st.write("This page resembles 'What if... ?' It shows how the model prediction would change based on a change in the attribute values")
     st.write("\n\n")
     st.write("### ➾ Simulator")
@@ -70,7 +74,6 @@ def main():
         explainer.dump("./explainer.joblib")
     else:
         explainer = ClassifierExplainer.from_file("./explainer.joblib")
-        explainer = st.session_state.explainer
     
     # what_if_component = ExplainerDashboard(explainer, 
     #                                         importances=False,

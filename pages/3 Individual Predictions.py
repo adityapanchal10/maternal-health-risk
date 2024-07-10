@@ -53,6 +53,10 @@ def main():
     
     st.write("## Indiviual Predictions")
     st.title("Maternal Health Risk Prediction")
+    st.logo(
+        "./love.png",
+        icon_image="./heartbeat.gif",
+    )
     st.write("\n\n")
     st.write("### ➾ Feature Importances")
     st.write("Using [ExplainerDashboard](https://github.com/oegedijk/explainerdashboard) for our model, we can see the feature importances.")
