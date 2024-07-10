@@ -77,7 +77,17 @@ def main():
     df, target = load_data()
     X = df.drop(target, axis=1)
     y = df[target]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)
+    if 'X_train' not in st.session_state:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)
+        st.session_state.X_train = X_train
+        st.session_state.y_train = y_train
+        st.session_state.X_test = X_test
+        st.session_state.y_test = y_test
+    else:
+        X_train = st.session_state.X_train
+        y_train = st.session_state.y_train
+        X_test = st.session_state.X_test
+        y_test = st.session_state.y_test
     st.write(f"Training on **{len(X_train)}** samples and using **{len(X_test)}** samples for validation.")
     model = load_model()
     start_time = time.time()
