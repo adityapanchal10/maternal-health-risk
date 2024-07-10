@@ -58,7 +58,7 @@ def main():
         icon_image="./heartbeat.gif",
     )
     st.write("\n\n")
-    st.write("### ➾ Feature Importances")
+    st.write("### Feature Importances")
     st.write("Using [ExplainerDashboard](https://github.com/oegedijk/explainerdashboard) for our model, we can see the feature importances.")
     st.write(f"**Model**: Random Forest (Trained on *{len(X_train)}* samples and validated on *{len(X_test)}* samples.)")
     
@@ -79,11 +79,11 @@ def main():
             
             importances_component = ImportancesComponent(explainer, hide_title=True)
             importances_html = importances_component.to_html()
-            st.components.v1.html(importances_html, height=500, width=800, scrolling=False)
+            st.components.v1.html(importances_html, height=440, width=800, scrolling=False)
        
     st.toast('Explainer loaded', icon="✔️")
     
-    st.write("### ➾ Contributions for a single point")
+    st.write("### Contributions for a single point")
     st.write("To see the contributions for a single point, select a sample from the sidebar.")
     
     # Index selector for SHAP contributions
@@ -93,12 +93,13 @@ def main():
     
     sample_df = df_og.loc[[X_test.index[index]]]
     sample_df = sample_df.to_frame().T if isinstance(sample_df, pd.Series) else sample_df
-    st.dataframe(sample_df, hide_index=True)
 
     col1, col2 = st.columns(2)
     
     with col1:
         # Contributions Table Component
+        st.write("\n\n")
+        st.dataframe(sample_df, hide_index=True)
         st.write("\n\n")
         contributions_table_component = ShapContributionsTableComponent(explainer, title="Contributions Table", index=index)
         contributions_table_html = contributions_table_component.to_html()

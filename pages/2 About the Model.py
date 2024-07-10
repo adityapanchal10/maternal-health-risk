@@ -69,7 +69,7 @@ def main():
         icon_image="./heartbeat.gif",
     )
     st.write("\n\n")
-    st.write("### ➾ Model Training and Evaluation")
+    st.write("### Model Training and Evaluation")
     st.write("**Model**: [Random Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)")
     st.write("**Hyperparameters**:")
     st.write("- [criterion](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=100%20in%200.22.-,criterion,-%7B%E2%80%9Cgini%E2%80%9D%2C%20%E2%80%9Centropy%E2%80%9D%2C%20%E2%80%9Clog_loss): log_loss")
@@ -100,7 +100,7 @@ def main():
     st.write(f"**Training time**: {training_time:.2f} seconds")    
         
     st.write("\n\n\n")
-    st.write("### ➾ Model Performance")
+    st.write("### Model Performance")
     display_results(model, X_train, y_train, X_test, y_test)
     st.write("One can see that the accuracy is quite good.")
     st.write("However, the accuracy metric only gives the overall corectness of the model.")

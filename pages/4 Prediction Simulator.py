@@ -59,7 +59,7 @@ def main():
     )
     st.write("This page resembles 'What if... ?' It shows how the model prediction would change based on a change in the attribute values")
     st.write("\n\n")
-    st.write("### ➾ Simulator")
+    st.write("### Simulator")
     st.write("Select a sample from the sidebar to view and modify the feature values. The model prediction will be updated accordingly.")
     st.write(f"**Model**: Random Forest (Trained on *{len(X_train)}* samples and validated on *{len(X_test)}* samples.)")
     
@@ -132,7 +132,7 @@ def main():
         st.write(f"‎ ‎ ‎ ‎ ‎ {string[:-3]}")
     
     st.write("\n\n")
-    st.write("### ➾ Key Findings")
+    st.write("### Key Findings")
     st.write("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
     
     st.balloons()
