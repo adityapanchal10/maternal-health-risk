@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-
 
 # Set page configuration
 st.set_page_config(
@@ -10,7 +8,6 @@ st.set_page_config(
     layout="centered", #centered #wide
     initial_sidebar_state="auto", #collapsed
 )
-
 
 # Load the Data set
 df = pd.read_csv("./Maternal Health Risk Data Set.csv")
