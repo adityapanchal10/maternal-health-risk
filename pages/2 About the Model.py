@@ -73,10 +73,17 @@ def main():
     st.write("### Model Training and Evaluation")
     st.write("**Model**: [Random Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)")
     st.write("**Hyperparameters**:")
-    st.write("- [criterion](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=100%20in%200.22.-,criterion,-%7B%E2%80%9Cgini%E2%80%9D%2C%20%E2%80%9Centropy%E2%80%9D%2C%20%E2%80%9Clog_loss): log_loss")
-    st.write("- [max_depth](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=is%20tree%2Dspecific.-,max_depth,-int%2C%20default%3DNone): 15")
-    st.write("- [max_features](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=is%20not%20provided.-,max_features,-%7B%E2%80%9Csqrt%E2%80%9D%2C%20%E2%80%9Clog2%E2%80%9D%2C%20None): log2")
-    st.write("- [n_estimators](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=Parameters%3A-,n_estimators,-int%2C%20default%3D100): 100")
+    c1, c2, c3, c4 = st.columns(4)
+    
+    with c1:
+        st.write("- [criterion](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=100%20in%200.22.-,criterion,-%7B%E2%80%9Cgini%E2%80%9D%2C%20%E2%80%9Centropy%E2%80%9D%2C%20%E2%80%9Clog_loss): log_loss")
+    with c2:
+        st.write("- [max_depth](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=is%20tree%2Dspecific.-,max_depth,-int%2C%20default%3DNone): 15")
+    with c3:
+        st.write("- [max_features](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=is%20not%20provided.-,max_features,-%7B%E2%80%9Csqrt%E2%80%9D%2C%20%E2%80%9Clog2%E2%80%9D%2C%20None): log2")
+    with c4:
+        st.write("- [n_estimators](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#:~:text=Parameters%3A-,n_estimators,-int%2C%20default%3D100): 100")
+    
     st.write("The above mentioned hyperparameters are the result of hyperparameter tuning using [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#gridsearchcv) using a 4 fold cross-validation.")
 
     df, target = load_data()
@@ -95,10 +102,12 @@ def main():
         y_test = st.session_state.y_test
     st.write(f"Training on **{len(X_train)}** samples and using **{len(X_test)}** samples for validation.")
     model = load_model()
-    start_time = time.time()
-    model.fit(X_train, y_train)
-    training_time = time.time() - start_time
+    with st.spinner(text='Training...'):
+        start_time = time.time()
+        model.fit(X_train, y_train)
+        training_time = time.time() - start_time
     st.write(f"**Training time**: {training_time:.2f} seconds")    
+    st.toast('Training Complete !!', icon="✔️")
         
     st.write("\n\n\n")
     st.write("### Model Performance")

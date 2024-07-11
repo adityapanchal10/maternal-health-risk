@@ -50,6 +50,8 @@ def main():
         y_train = st.session_state.y_train
         X_test = st.session_state.X_test
         y_test = st.session_state.y_test
+        y_train = label_encoder.fit_transform(y_train)
+        y_test = label_encoder.fit_transform(y_test)
     
     st.write("## Prediction Simulator")
     st.title("Maternal Health Risk Prediction")
