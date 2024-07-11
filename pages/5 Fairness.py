@@ -187,6 +187,10 @@ import streamlit as st
 
 def main():
     st.title("🚧 Page Under Construction 🔨")
+    st.logo(
+        "./love.png",
+        icon_image="./heartbeat.gif",
+    )
     st.image("./excavator.gif")
 
 if __name__ == "__main__":

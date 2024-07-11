@@ -51,6 +51,7 @@ def display_results(model, X_train, y_train, X_test, y_test):
                     y=['Medium Risk', 'Low Risk', 'High Risk'],  
                     hoverongaps=False,
                     text=cm[::-1],
+                    colorscale="blues",
                     texttemplate="%{text}"))
     
     fig.update_layout(
@@ -100,7 +101,7 @@ def main():
     st.write(f"**Training time**: {training_time:.2f} seconds")    
         
     st.write("\n\n\n")
-    st.write("### Model Performance")
+    st.write("### gi Model Performance")
     display_results(model, X_train, y_train, X_test, y_test)
     st.write("One can see that the accuracy is quite good.")
     st.write("However, the accuracy metric only gives the overall corectness of the model.")

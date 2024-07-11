@@ -57,9 +57,12 @@ def main():
         "./love.png",
         icon_image="./heartbeat.gif",
     )
-    st.write("This page resembles 'What if... ?' It shows how the model prediction would change based on a change in the attribute values")
+    st.write("To get a better understanding of the model's decision process, it is necessary to understand both how changing that feature impacts the model’s output, and also the distribution of that feature’s values.")
+    st.write("This page allows you to explore the model's predictions by changing the feature values.")
+
+    # st.write("This page resembles 'What if... ?' It shows how the model prediction would change based on a change in the attribute values")
     st.write("\n\n")
-    st.write("### Simulator")
+    st.write("### What if... ?")
     st.write("Select a sample from the sidebar to view and modify the feature values. The model prediction will be updated accordingly.")
     st.write(f"**Model**: Random Forest (Trained on *{len(X_train)}* samples and validated on *{len(X_test)}* samples.)")
     
@@ -130,6 +133,8 @@ def main():
         for i, label in enumerate(label_encoder.classes_):
             string += f"{i}: {label},  ‎ " 
         st.write(f"‎ ‎ ‎ ‎ ‎ {string[:-3]}")
+    
+    st.toast('Simulator loaded', icon="✔️")
     
     st.write("\n\n")
     st.write("### Key Findings")

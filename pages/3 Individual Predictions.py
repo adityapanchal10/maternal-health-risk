@@ -61,6 +61,12 @@ def main():
     st.write("### Feature Importances")
     st.write("Using [ExplainerDashboard](https://github.com/oegedijk/explainerdashboard) for our model, we can see the feature importances.")
     st.write(f"**Model**: Random Forest (Trained on *{len(X_train)}* samples and validated on *{len(X_test)}* samples.)")
+    st.write('**Note**: We do not use the model co-efficeints as feature importances because the value of each co-efficient depends on the scale of the input features. For example, if we use months as a unit for Age instead of years, the coefficient for Age will be 12 times smaller which does not make sense.')
+    st.write("This means that the magnitude of a coefficient is not necessarily a good measure of a feature’s importance.")
+    st.write("Hence, SHAP values are used to calculate feature importances.")
+    st.write("Shapley values are a concept from game theory that provide a natural way to compute which features contribute to a prediction or contribute to the uncertainty of a prediction.")
+    st.write("A prediction can be explained by assuming that each feature value of the instance is a 'player' in a game where the prediction is the payout.")
+    st.info("The SHAP value of a feature is **not** the difference of the predicted value after removing the feature from the model training. It can be interpreted as - given the current set of feature values, the contribution of a feature value to the difference between the actual prediction and the mean prediction is the estimated Shapley value.", icon="ℹ️")
     
     model = load_model()
     model = model.fit(X_train, y_train)
@@ -82,7 +88,10 @@ def main():
             st.components.v1.html(importances_html, height=440, width=800, scrolling=False)
        
     st.toast('Explainer loaded', icon="✔️")
-    
+    st.write("From the plot above, we can see that the most prominent feature for the model in its decision making is *BS* i.e blood sugar levels")
+    st.write("This gives an overview of the model's decision making process. However, if we want to see the contributions for a single sample, we proceed further.") 
+     
+    st.write("\n\n")
     st.write("### Contributions for a single point")
     st.write("To see the contributions for a single point, select a sample from the sidebar.")
     
@@ -110,8 +119,12 @@ def main():
         st.write("\n\n")
         contributions_graph_component = ShapContributionsGraphComponent(explainer, title="Contributions Plot", index=index)
         contributions_graph_html = contributions_graph_component.to_html()
-        st.components.v1.html(contributions_graph_html, height=900, width=500, scrolling=False)
+        st.components.v1.html(contributions_graph_html, height=730, width=500, scrolling=False)
     
+    st.write("The table shows the contributions of each feature to the prediction for the selected sample.")
+    st.write("And the plot shows how the model makes a prediction for a sample. The base value is the average prediction of the model. The SHAP values show how each feature contributes to the prediction.")
+    st.write("The SHAP values are added one at a time, starting from the left, until the current model prediction is reached.")
+    st.info("One of the fundamental properties of Shapley values is that they always sum up to the difference between the game outcome when all players are present and the game outcome when no players are present. In our case, it means that SHAP values of all the input features will always sum up to the difference between baseline (expected) model output and the current model output for the prediction being explained.", icon="ℹ️")
     st.balloons()
         
     
