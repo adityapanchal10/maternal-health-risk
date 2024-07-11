@@ -66,7 +66,6 @@ def main():
     st.write("\n\n")
     st.write("### What if... ?")
     st.write("Select a sample from the sidebar to view and modify the feature values. The model prediction will be updated accordingly.")
-    st.write(f"**Model**: Random Forest (Trained on *{len(X_train)}* samples and validated on *{len(X_test)}* samples.)")
     
     model = load_model()
     model = model.fit(X_train, y_train)
@@ -94,8 +93,8 @@ def main():
     # what_if_html = what_if_component.to_html()
     # st.components.v1.html(what_if_html, width=800, height=2000, scrolling=False)
     
-    index = st.sidebar.selectbox("Select an index to view and modify", options=range(len(X_test)))
-    st.write(f"Selected sample: {index}")
+    index = st.sidebar.selectbox("Select a `mother_id` to view and modify", options=range(len(X_test)))
+    st.write(f"Selected mother_id: {index}")
     
     sample_df = df_og.loc[[X_test.index[index]]]
     sample_df = sample_df.to_frame().T if isinstance(sample_df, pd.Series) else sample_df

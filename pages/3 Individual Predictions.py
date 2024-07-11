@@ -53,53 +53,35 @@ def main():
         y_train = label_encoder.fit_transform(y_train)
         y_test = label_encoder.fit_transform(y_test)
     
-    st.write("## Indiviual Predictions")
+    st.write("## Individual Predictions")
     st.title("Maternal Health Risk Prediction")
     st.logo(
         "./love.png",
         icon_image="./heartbeat.gif",
     )
-    st.write("\n\n")
-    st.write("### Feature Importances")
-    st.write("Using [ExplainerDashboard](https://github.com/oegedijk/explainerdashboard) for our model, we can see the feature importances.")
-    st.write(f"**Model**: Random Forest (Trained on *{len(X_train)}* samples and validated on *{len(X_test)}* samples.)")
-    st.write('**Note**: We do not use the model co-efficeints as feature importances because the value of each co-efficient depends on the scale of the input features. For example, if we use months as a unit for Age instead of years, the coefficient for Age will be 12 times smaller which does not make sense.')
-    st.write("This means that the magnitude of a coefficient is not necessarily a good measure of a feature’s importance.")
-    st.write("Hence, SHAP values are used to calculate feature importances.")
-    st.write("Shapley values are a concept from game theory that provide a natural way to compute which features contribute to a prediction or contribute to the uncertainty of a prediction.")
-    st.write("A prediction can be explained by assuming that each feature value of the instance is a 'player' in a game where the prediction is the payout.")
-    st.info("The SHAP value of a feature is **not** the difference of the predicted value after removing the feature from the model training. It can be interpreted as - given the current set of feature values, the contribution of a feature value to the difference between the actual prediction and the mean prediction is the estimated Shapley value.", icon="ℹ️")
     
     model = load_model()
     model = model.fit(X_train, y_train)
     # importances = model.feature_importances_
     # print(importances)  
-    
-    with st.container():
-        st.write("\n\n")
-        with st.spinner(text='Loading Explainer...'):
+            
+    with st.spinner(text='Loading Explainer...'):
             if 'explainer' not in st.session_state:
                 explainer = ClassifierExplainer(model, X_test, y_test)
                 st.session_state.explainer = explainer
                 explainer.dump("./explainer.joblib")
             else:
                 explainer = ClassifierExplainer.from_file("./explainer.joblib")
-            
-            importances_component = ImportancesComponent(explainer, hide_title=True)
-            importances_html = importances_component.to_html()
-            st.components.v1.html(importances_html, height=440, width=800, scrolling=False)
        
     st.toast('Explainer loaded', icon="✔️")
-    st.write("From the plot above, we can see that the most prominent feature for the model in its decision making is *BS* i.e blood sugar levels")
-    st.write("This gives an overview of the model's decision making process. However, if we want to see the contributions for a single sample, we proceed further.") 
      
     st.write("\n\n")
     st.write("### Contributions for a single point")
-    st.write("To see the contributions for a single point, select a sample from the sidebar.")
+    st.write("To see the contributions for a single point, select a *mother_id* from the sidebar.")
     
     # Index selector for SHAP contributions
-    index = st.sidebar.selectbox("Select an index to view contributions", options=range(len(X_test)))
-    st.write(f"Selected index: {index}")
+    index = st.sidebar.selectbox("Select a `mother_id` to view contributions", options=range(len(X_test)))
+    st.write(f"Selected mother_id: {index}")
     st.write(f"Predicted class: {model.predict(X_test.iloc[[index]])[0]} ({label_encoder.classes_[model.predict(X_test.iloc[[index]])[0]]})")
     
     sample_df = df_og.loc[[X_test.index[index]]]
