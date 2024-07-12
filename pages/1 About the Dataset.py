@@ -13,7 +13,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Set page configuration
 st.set_page_config(
-    #page_title="Maternal Health Risk Dataset",
+    page_title="Maternal Health Risk Dataset",
     layout="centered", #centered #wide
     initial_sidebar_state="expanded",
 )
@@ -27,7 +27,7 @@ def load_data():
 
 def main():
     # Page Title
-    st.markdown("## About the Dataset")
+    st.header("About the Dataset", anchor="about")
     st.title("Maternal Health Risk Dataset")
     st.logo(
         "./love.png",
@@ -81,7 +81,7 @@ def main():
         filtered_df = df[(df[selected_attribute] >= min_value) & (df[selected_attribute] <= max_value)]
 
     # Display dataset
-    st.markdown("### The Dataset")
+    st.subheader("The Dataset", anchor="dataset", help="The dataset used in this application", divider="red")
     st.write("""Below you can find the dataset used in this application.
     You can filter the data using the Selection & Filter Options on the sidebar.""")
     st.dataframe(filtered_df)
@@ -89,7 +89,7 @@ def main():
 
     # Display Attribute Distribution
     st.write("\n\n\n")
-    st.write("### Attribute distribution")
+    st.subheader("Attribute distribution", anchor="attribute-distribution", help="The distribution of the selected attribute", divider="red")
     st.write("In the sidebar, select the attribute for which you want to see the distribution.")
     st.write("You can also filter the data based on the attribute values.")
     st.write("The graph shows the distribution of the selected filtered attribute collored by the risk classification level.")
@@ -137,7 +137,7 @@ def main():
     df_info = pd.DataFrame(info)
 
     # Display the table in Streamlit
-    st.markdown("### Attribute Information")
+    st.subheader("Attribute Information", anchor="attribute-information", help="Information about the dataset attributes", divider="red")
     st.write("""
     This table provides detailed information about each variable in the dataset. 
 

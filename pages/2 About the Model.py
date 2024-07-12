@@ -67,14 +67,14 @@ def display_results(model, X_train, y_train, X_test, y_test):
     plt.clf()  # Clear the current figure after displaying it
     
 def main():
-    st.write("## About the Model")
+    st.header("About the Model", anchor="model")
     st.title("Maternal Health Risk Prediction")
     st.logo(
         "./love.png",
         icon_image="./heartbeat.gif",
     )
     st.write("\n\n")
-    st.write("### Model Training and Evaluation")
+    st.subheader("Model Training and Evaluation", anchor="training", divider="red")
     
     st.write("**Model**: [Random Forest](https://willkoehrsen.github.io/data%20science/machine%20learning/random-forest-simple-explanation/)")
     
@@ -115,20 +115,21 @@ def main():
     st.toast('Training Complete !!', icon="✔️")
         
     st.write("\n\n\n")
-    st.write("### Model Performance")
+    st.subheader("Model Performance", anchor="model-performance", divider="red")
     display_results(model, X_train, y_train, X_test, y_test)
     # st.write("One can see that the accuracy is quite good.")
-    st.write("By looking at the confusion matrix, we can see that our model does a good job in reducing the number of false positives i.e. if the actual is *High Risk*, only a few instances are predicted as *Low Risk* or *Medium Risk*.")
-    st.write("This is important because in the context of maternal health, we want to minimize the number of false positives as much as possible i.e. a *High Risk* and *Medium Risk* should not be predicted as *Low Risk* as much as possible.")
-    st.write("The inverse is okay i.e. if a *Low Risk* is predicted as *Medium Risk* or *High Risk*, it is not as bad as the former case.")    
+    st.write("By looking at the confusion matrix, we can see that our model does a good job in reducing the number of false positives i.e. if the actual is *:red[High Risk]*, only a few instances are predicted as *:green[Low Risk]* or *:orange[Medium Risk]*.")
+    st.write("This is important because in the context of maternal health, we want to minimize the number of false positives as much as possible i.e. a *:red[High Risk]* and *:orange[Medium Risk]* should not be predicted as *:green[Low Risk]* as much as possible.")
+    st.write("The inverse is okay i.e. if a *:green[Low Risk]* is predicted as *:orange[Medium Risk]* or *:red[High Risk]*, it is not as bad as the former case.")    
     with st.expander("💡 Click here to know more about the confusion matrix..."):
         st.write("The accuracy metric only gives the overall corectness of the model.")
         st.write("In order to get a better understanding of the model's performance across different classes, the confusion matrix is more valueable.")
         st.write("The confusion matrix shows the actual v.s. predicted classification for each class.")
         
     st.write("\n\n")
-    st.write("### Feature Importances")
-    st.write("Using [ExplainerDashboard](https://github.com/oegedijk/explainerdashboard) for our model, we visualize feature importances.")
+    help_str = "We do not use the model co-efficeints as feature importances because the value of each co-efficient depends on the scale of the input features. For example, if we use months as a unit for Age instead of years, the coefficient for Age will be 12 times smaller which does not make sense.\nThis means that the magnitude of a coefficient is not necessarily a good measure of a feature’s importance.\nHence, SHAP values are used to calculate feature importances."
+    st.subheader("Feature Importances", anchor="feature-importances", help=help_str, divider="red")
+    st.write("Using [:blue-background[ExplainerDashboard]](https://github.com/oegedijk/explainerdashboard) for our model, we visualize feature importances.")
     
     y_train = LabelEncoder().fit_transform(y_train)
     y_test = LabelEncoder().fit_transform(y_test)
@@ -156,7 +157,7 @@ def main():
         st.write('We do not use the model co-efficeints as feature importances because the value of each co-efficient depends on the scale of the input features. For example, if we use months as a unit for Age instead of years, the coefficient for Age will be 12 times smaller which does not make sense.')
         st.write("This means that the magnitude of a coefficient is not necessarily a good measure of a feature’s importance.")
         st.write("Hence, SHAP values are used to calculate feature importances.")
-    with st.expander("🤯 **What are SHAP values**❓"):
+    with st.expander("🤯 **What are SHAP values**? 🎲"):
         st.write("Shapley values are a concept from game theory that provide a natural way to compute which features contribute to a prediction or contribute to the uncertainty of a prediction.")
         st.write("A prediction can be explained by assuming that each feature value of the instance is a 'player' in a game where the prediction is the payout.")
         st.info("The SHAP value of a feature is **not** the difference of the predicted value after removing the feature from the model training. It can be interpreted as - given the current set of feature values, the contribution of a feature value to the difference between the actual prediction and the mean prediction is the estimated Shapley value.", icon="ℹ️")
