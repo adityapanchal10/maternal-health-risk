@@ -73,7 +73,7 @@ def main():
             else:
                 explainer = ClassifierExplainer.from_file("./explainer.joblib")
        
-    st.toast('Explainer loaded', icon="✔️")
+    st.toast('Explainer ready 🔬', icon="✔️")
      
     #st.write("\n\n")
     #st.write("### Contributions for a single point")

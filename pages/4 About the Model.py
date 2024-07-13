@@ -149,7 +149,7 @@ def main():
             importances_html = importances_component.to_html()
             st.components.v1.html(importances_html, height=440, width=800, scrolling=False)
        
-    st.toast('Explainer loaded', icon="✔️")
+    # st.toast('Explainer loaded', icon="✔️")
     st.write("From the plot above, we can see that the most prominent feature for the model in its decision making is *BS* i.e blood sugar levels")
     st.write("This gives an overview of the model's decision making process. However, if we want to see the contributions for a single sample, click on 'Individual Predictions' in the sidebar.") 
     

@@ -214,7 +214,7 @@ def main():
         st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
         
     
-    st.toast('Simulator loaded', icon="✔️")
+    st.toast('Simulator ready 🕹️', icon="✔️")
     st.write("\n\n")
     st.write("One can see how the output class probabilities change as the attribute values are modified.")
     
