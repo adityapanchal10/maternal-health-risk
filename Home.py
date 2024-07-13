@@ -43,6 +43,7 @@ st.image("./MomArt.jpeg", use_column_width=True)
 #         }
 #         """
 # ):
+st.sidebar.header("\n")
 st.sidebar.subheader("App Developers:", divider="red")
 st.sidebar.write("Aditya Panchal")
 st.sidebar.markdown("Mariana Steffens")
@@ -52,4 +53,4 @@ st.sidebar.markdown("Se Yeon Kim")
 st.sidebar.markdown("##### App developed as part of the Human Centered Data Science course at the Freie Universität Berlin")
 st.sidebar.markdown("##### 02.07.2024")
 
-    # badge(type="github", name="adityapanchal10/maternal-risk-app", url="https://github.com/adityapanchal10/maternal-risk-app")
+# badge(type="github", name="adityapanchal10/maternal-risk-app", url="https://github.com/adityapanchal10/maternal-risk-app")
