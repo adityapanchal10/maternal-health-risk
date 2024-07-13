@@ -8,6 +8,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.kernel_ridge import KernelRidge
 from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt
+from streamlit_extras.let_it_rain import rain
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -148,3 +149,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+    rain(
+        emoji="🍁",
+        font_size=34,
+        falling_speed=3,
+        animation_length=1,
+    )

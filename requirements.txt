@@ -5,3 +5,4 @@ plotly
 scikit-learn
 matplotlib
 explainerdashboard
+streamlit-extras

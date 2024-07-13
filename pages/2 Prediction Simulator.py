@@ -14,6 +14,7 @@ from explainerdashboard import ClassifierExplainer, ExplainerDashboard
 from explainerdashboard.dashboard_components import *
 from sklearn.preprocessing import LabelEncoder
 import streamlit.components.v1 
+from streamlit_extras.let_it_rain import rain
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -227,3 +228,9 @@ def main():
     
 if __name__ == "__main__":
     main()
+    rain(
+        emoji="🧸",
+        font_size=34,
+        falling_speed=3,
+        animation_length=1,
+    )
