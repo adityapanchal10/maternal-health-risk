@@ -154,10 +154,12 @@ def main():
         contributions_graph_html = contributions_graph_component.to_html()
         st.components.v1.html(contributions_graph_html, height=730, scrolling=False, width=500) 
     
-    st.write("The table shows the contributions of each feature to the prediction for the selected sample.")
-    st.write("And the plot shows how the model makes a prediction for a sample. The base value is the average prediction of the model. The SHAP values show how each feature contributes to the prediction.")
-    st.write("The SHAP values are added one at a time, starting from the left, until the current model prediction is reached.")
-    st.info("One of the fundamental properties of Shapley values is that they always sum up to the difference between the game outcome when all players are present and the game outcome when no players are present. In our case, it means that SHAP values of all the input features will always sum up to the difference between baseline (expected) model output and the current model output for the prediction being explained.", icon="ℹ️")
+    st.write("The table shows the contributions of each feature to the prediction for the selected sample. :gray[(Higher the 'Final Predction', lower the predicted risk level)]")
+    st.write("And the plot shows how the model makes a prediction for a sample i.e. how each feature contributes to the prediction.")
+    st.write("We start from the left that is the baseline a.k.a the average prediction of our model. We then add all the contributions given by the SHAP values one by one and until we end up with the final prediction the right.")
+    st.write("A higher value of the 'Prediction %' indicates a final prediction of :green[low risk], while a lower value indicates a final prediction of :red[high risk].")
+    st.write("⚠️  **Note:** Before making any decision based on the model's final prediction, please also have a good look at the :violet-background[Confusion Matrix] under the 'About the Model' page. It gives necessary information about the model's performance, namely *false positives* and *false negatives*.")
+    st.info("One of the fundamental properties of Shapley values is that their sum yields the difference of actual and average prediction. In our case, it means that SHAP values of all the input features will always sum up to the difference between baseline (expected) model output and the current model output for the prediction being explained. Also, the baseline remains the same for each point as it is simply the mean of all the predictions of our model", icon="ℹ️")
     #st.balloons()
         
     

@@ -121,9 +121,9 @@ def main():
     # st.write("One can see that the accuracy is quite good.")
     st.write("By looking at the confusion matrix, we can see that our model does a good job in reducing the number of false positives i.e. if the actual is *:red[High Risk]*, only a few instances are predicted as *:green[Low Risk]* or *:orange[Medium Risk]*.")
     st.write("This is important because in the context of maternal health, we want to minimize the number of false positives as much as possible i.e. a *:red[High Risk]* and *:orange[Medium Risk]* should not be predicted as *:green[Low Risk]* as much as possible.")
-    st.write("The inverse is okay i.e. if a *:green[Low Risk]* is predicted as *:orange[Medium Risk]* or *:red[High Risk]*, it is not as bad as the former case.")    
+    st.write("The inverse, a false negative, is okay i.e. if a *:green[Low Risk]* is predicted as *:orange[Medium Risk]* or *:red[High Risk]*, it is not as bad as the former case.")    
     with st.expander("💡 Click here to know more about the confusion matrix..."):
-        st.write("The accuracy metric only gives the overall corectness of the model.")
+        st.write("The accuracy metric only gives the overall correctness of the model.")
         st.write("In order to get a better understanding of the model's performance across different classes, the confusion matrix is more valueable.")
         st.write("The confusion matrix shows the actual v.s. predicted classification for each class.")
         
@@ -152,7 +152,7 @@ def main():
        
     # st.toast('Explainer loaded', icon="✔️")
     st.write("From the plot above, we can see that the most prominent feature for the model in its decision making is *BS* i.e blood sugar levels")
-    st.write("This gives an overview of the model's decision making process. However, if we want to see the contributions for a single sample, click on 'Individual Predictions' in the sidebar.") 
+    st.write("This gives an overview of the model's decision making process. However, if one wants to see the contributions for a single sample, click on 'Individual Prediction' in the sidebar.") 
     
     with st.expander("📚 **General Note**"):
         st.write('We do not use the model co-efficeints as feature importances because the value of each co-efficient depends on the scale of the input features. For example, if we use months as a unit for Age instead of years, the coefficient for Age will be 12 times smaller which does not make sense.')

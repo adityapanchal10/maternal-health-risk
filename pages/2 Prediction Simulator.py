@@ -161,7 +161,7 @@ def main():
         prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
         prediction_component_html = prediction_component.to_html()
         st.components.v1.html(prediction_component_html, height=560, scrolling=False)
-        string = ""
+        # string = ""
         #for i, label in enumerate(label_encoder.classes_):
         #    string += f"{i}: {label},  ‎ " 
         #st.write(f"‎ ‎ ‎ ‎ ‎ {string[:-3]}")
@@ -191,7 +191,7 @@ def main():
         prediction_component = ClassifierPredictionSummaryComponent(explainer, title="New Prediction", index=index, hide_selector=True)
         prediction_component_html = prediction_component.to_html()
         st.components.v1.html(prediction_component_html, height=560, scrolling=False)
-        string = ""
+        # string = ""
         #for i, label in enumerate(label_encoder.classes_):
         #    string += f"{i}: {label},  ‎ " 
         #st.write(f"‎ ‎ ‎ ‎ ‎ {string[:-3]}")
