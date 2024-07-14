@@ -74,9 +74,7 @@ def main():
     st.write("The new sample values are displayed below, alongwith the change from the original sample values. (they can be reset to original values by clicking the `Reset` button in the sidebar)")
     
     model = load_model()
-    model = model.fit(X_train, y_train)
-    # importances = model.feature_importances_
-    # print(importances)  
+    model = model.fit(X_train, y_train) 
     
     if 'explainer' not in st.session_state:
         explainer = ClassifierExplainer(model, X_test, y_test)
@@ -84,32 +82,15 @@ def main():
         explainer.dump("./explainer.joblib")
     else:
         explainer = ClassifierExplainer.from_file("./explainer.joblib")
-    
-    # what_if_component = ExplainerDashboard(explainer, 
-    #                                         importances=False,
-    #                                         model_summary=False,
-    #                                         contributions=False,
-    #                                         whatif=True,
-    #                                         shap_dependence=False,
-    #                                         shap_interaction=False,
-    #                                         decision_trees=False, 
-    #                                         hide_whatifpdp=True,
-    #                                         index=0
-    #                                     )
-    # what_if_html = what_if_component.to_html()
-    # st.components.v1.html(what_if_html, width=800, height=2000, scrolling=False)
+        
+    # if 'loaded' not in st.session_state:
+    #     st.session_state.loaded = True
+    #     st.session_state.pred_index = {}
     
     index = st.sidebar.selectbox("Select a `mother_id` to view and modify", options=range(len(X_test)))
     st.write(f"🎗️ Selected *mother_id*: {index}")
-    
-    sample_df = df_og.loc[[X_test.index[index]]]
-    sample_df = sample_df.to_frame().T if isinstance(sample_df, pd.Series) else sample_df
 
-    X_test_mod = X_test.copy()
-    
     sample = X_test.iloc[index]
-    sample_index = X_test.index[index]    
-    sample_df = df_og.loc[[X_test.index[index]]]
     
     # Create sliders for each feature to modify the values
     st.sidebar.write("Change attribute values here:")
@@ -129,7 +110,9 @@ def main():
                 new_values[col] = int(sample[col])
     
     # Create a DataFrame with the new values
+    X_test_mod = X_test.copy()
     new_sample = pd.DataFrame([new_values])
+    X_test_mod.iloc[index] = new_sample.loc[0]
     
     # Display the new feature values
     c1, c2, c3, c4, c5, c6 = st.columns(6)
@@ -156,20 +139,21 @@ def main():
     
     col1, col2 = st.columns(2)
     with col1:
-        explainer = ClassifierExplainer(model, X_test, y_test)
 
+        # if index not in st.session_state.pred_index.keys():
+        #     prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
+        #     st.session_state.pred_index[index] = prediction_component
+        #     print(st.session_state.pred_index.keys())
+        # else:
+        #     prediction_component = st.session_state.pred_index[index]
         prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
         prediction_component_html = prediction_component.to_html()
         st.components.v1.html(prediction_component_html, height=560, scrolling=False)
-        # string = ""
-        #for i, label in enumerate(label_encoder.classes_):
-        #    string += f"{i}: {label},  ‎ " 
-        #st.write(f"‎ ‎ ‎ ‎ ‎ {string[:-3]}")
 
         predicted_class = model.predict(X_test.iloc[[index]])[0]
         class_name = label_encoder.classes_[predicted_class]
         
-         # Traffic light colors for classes
+        # Traffic light colors for classes
         # color_map = {
         #     0: {"background": "#EA324C", "color": "white"},
         #     1: {"background": "#00B38A", "color": "white"},
@@ -185,21 +169,15 @@ def main():
         st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
         
     with col2: 
-        X_test_mod.loc[sample_index] = new_sample.loc[0]
-        
         explainer = ClassifierExplainer(model, X_test_mod, y_test)
         prediction_component = ClassifierPredictionSummaryComponent(explainer, title="New Prediction", index=index, hide_selector=True)
         prediction_component_html = prediction_component.to_html()
         st.components.v1.html(prediction_component_html, height=560, scrolling=False)
-        # string = ""
-        #for i, label in enumerate(label_encoder.classes_):
-        #    string += f"{i}: {label},  ‎ " 
-        #st.write(f"‎ ‎ ‎ ‎ ‎ {string[:-3]}")
 
         predicted_class = model.predict(X_test_mod.iloc[[index]])[0]
         class_name = label_encoder.classes_[predicted_class]
         
-         # Traffic light colors for classes
+        # Traffic light colors for classes
         # color_map = {
         #     0: {"background": "#EA324C", "color": "white"},
         #     1: {"background": "#00B38A", "color": "white"},
@@ -222,9 +200,7 @@ def main():
     #st.write("\n\n")
     #st.write("### Key Findings")
     #st.write("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
-    
-    #st.balloons()
-        
+       
     
 if __name__ == "__main__":
     main()
