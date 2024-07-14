@@ -14,7 +14,6 @@ from explainerdashboard import ClassifierExplainer, ExplainerDashboard
 from explainerdashboard.dashboard_components import ImportancesComponent, ShapContributionsTableComponent, ShapContributionsGraphComponent
 from sklearn.preprocessing import LabelEncoder
 import streamlit.components.v1 
-from streamlit_extras.let_it_rain import rain
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -51,8 +50,6 @@ def main():
         y_train = st.session_state.y_train
         X_test = st.session_state.X_test
         y_test = st.session_state.y_test
-        #y_train = label_encoder.fit_transform(y_train)
-        #y_test = label_encoder.fit_transform(y_test)
     
     st.header("Individual Prediction", anchor="individual-prediction")
     st.title("Maternal Health Risk Prediction")
@@ -63,8 +60,6 @@ def main():
         
     model = load_model()
     model = model.fit(X_train, y_train)
-    # importances = model.feature_importances_
-    # print(importances)  
             
     with st.spinner(text='Loading Explainer...'):
             if 'explainer' not in st.session_state:
@@ -76,8 +71,6 @@ def main():
        
     st.toast('Explainer ready 🔬', icon="✔️")
      
-    #st.write("\n\n")
-    #st.write("### Contributions for a single point")
     st.write("Select the *mother_id* from the sidebar to see the prediction health risk for the mother and prediction contribution.")
     st.warning('''If the mother presents a significant symptom not considered by the model (e.g., stroke symptoms), disregard the model's prediction and
     base the urgency purely on medical judgment.''', icon="⚠️")
@@ -113,8 +106,6 @@ def main():
     st.write(f"{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
 
     st.write("\n\n")
-
-    #st.write(f"Predicted class: {model.predict(X_test.iloc[[index]])[0]} ({label_encoder.classes_[model.predict(X_test.iloc[[index]])[0]]})")
     
     sample_df = df_og.loc[[X_test.index[index]]]
     sample_df = sample_df.to_frame().T if isinstance(sample_df, pd.Series) else sample_df
@@ -139,9 +130,6 @@ def main():
     col1, col2 = st.columns(2)
     
     with col1:
-        # Contributions Table Component
-        #st.write("\n\n")
-        #st.dataframe(sample_df, hide_index=True)
         st.write("\n\n")
         contributions_table_component = ShapContributionsTableComponent(explainer, title="Contributions Table", index=index)
         contributions_table_html = contributions_table_component.to_html()
@@ -160,14 +148,7 @@ def main():
     st.write("A higher value of the 'Prediction %' indicates a final prediction of :green[low risk], while a lower value indicates a final prediction of :red[high risk].")
     st.write("⚠️  **Note:** Before making any decision based on the model's final prediction, please also have a good look at the :violet-background[Confusion Matrix] under the 'About the Model' page. It gives necessary information about the model's performance, namely *false positives* and *false negatives*.")
     st.info("One of the fundamental properties of Shapley values is that their sum yields the difference of actual and average prediction. In our case, it means that SHAP values of all the input features will always sum up to the difference between baseline (expected) model output and the current model output for the prediction being explained. Also, the baseline remains the same for each point as it is simply the mean of all the predictions of our model", icon="ℹ️")
-    #st.balloons()
         
     
 if __name__ == "__main__":
     main()
-    rain(
-        emoji="❄️",
-        font_size=34,
-        falling_speed=3,
-        animation_length=1,
-    )

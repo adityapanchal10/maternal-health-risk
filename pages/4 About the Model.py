@@ -14,7 +14,6 @@ from explainerdashboard import ClassifierExplainer, ExplainerDashboard
 from explainerdashboard.dashboard_components import ImportancesComponent, ShapContributionsTableComponent, ShapContributionsGraphComponent
 from sklearn.preprocessing import LabelEncoder
 import streamlit.components.v1 
-from streamlit_extras.let_it_rain import rain
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -118,7 +117,7 @@ def main():
     st.write("\n\n\n")
     st.subheader("Model Performance", anchor="model-performance", divider="red")
     display_results(model, X_train, y_train, X_test, y_test)
-    # st.write("One can see that the accuracy is quite good.")
+   
     st.write("By looking at the confusion matrix, we can see that our model does a good job in reducing the number of false positives i.e. if the actual is *:red[High Risk]*, only a few instances are predicted as *:green[Low Risk]* or *:orange[Medium Risk]*.")
     st.write("This is important because in the context of maternal health, we want to minimize the number of false positives as much as possible i.e. a *:red[High Risk]* and *:orange[Medium Risk]* should not be predicted as *:green[Low Risk]* as much as possible.")
     st.write("The inverse, a false negative, is okay i.e. if a *:green[Low Risk]* is predicted as *:orange[Medium Risk]* or *:red[High Risk]*, it is not as bad as the former case.")    
@@ -166,9 +165,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-    rain(
-        emoji="🛸",
-        font_size=34,
-        falling_speed=3,
-        animation_length=1,
-    )

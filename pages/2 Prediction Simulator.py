@@ -14,7 +14,6 @@ from explainerdashboard import ClassifierExplainer, ExplainerDashboard
 from explainerdashboard.dashboard_components import *
 from sklearn.preprocessing import LabelEncoder
 import streamlit.components.v1 
-from streamlit_extras.let_it_rain import rain
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -51,8 +50,6 @@ def main():
         y_train = st.session_state.y_train
         X_test = st.session_state.X_test
         y_test = st.session_state.y_test
-        #y_train = label_encoder.fit_transform(y_train) #bug, the risk label was not showing up
-        #y_test = label_encoder.fit_transform(y_test) #bug, the risk label was not showing up
     
     st.header("Prediction Simulator", anchor="prediction-simulator")
     st.title("Maternal Health Risk Prediction")
@@ -204,9 +201,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-    rain(
-        emoji="🧸",
-        font_size=34,
-        falling_speed=3,
-        animation_length=1,
-    )
