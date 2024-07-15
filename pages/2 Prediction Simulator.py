@@ -158,10 +158,17 @@ def main():
         
     st.write("\n\n\n\n")
 
-    get_color = {
-        0: ":red-background",
-        1: ":green-background",
-        2: ":orange-background"
+    # get_color = {
+    #     0: ":red-background",
+    #     1: ":green-background",
+    #     2: ":orange-background"
+    # }
+    
+    # Traffic light colors for classes
+    color_map = {
+        0: {"background": "#EA324CAA", "color": "white"},
+        1: {"background": "#00B38AAA", "color": "black"},
+        2: {"background": "#F2AC42AA", "color": "black"}
     }
     
     col1, col2 = st.columns(2)
@@ -183,23 +190,16 @@ def main():
         pie_chart = create_pie_chart(predicted_probs, "Original Prediction")
         st.plotly_chart(pie_chart)
         
-        # Traffic light colors for classes
-        # color_map = {
-        #     0: {"background": "#EA324C", "color": "white"},
-        #     1: {"background": "#00B38A", "color": "white"},
-        #     2: {"background": "#F2AC42", "color": "black"}
-        # }
-        # color = color_map.get(predicted_class, {"background": "black", "color": "white"})
-        
-        # st.markdown(f"""
-        # <div style='background-color: {color['background']}; padding: 10px; border-radius: 5px; color: {color['color']};'>
-        #     Predicted class: {class_name} (class {predicted_class})
-        # </div>
-        # """, unsafe_allow_html=True)
-        
         predicted_class = model.predict(X_test.iloc[[index]])[0]
         class_name = label_encoder.classes_[predicted_class]
-        st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
+        color = color_map.get(predicted_class, {"background": "black", "color": "white"})
+        st.markdown(f"""
+        <div style='background-color: {color['background']}; margin-left:20px; margin-right:2s0px; padding: 10px; border-radius: 5px; color: {color['color']};'>
+            Predicted class: {class_name} (class {predicted_class})
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
         
     with col2: 
         # explainer = ClassifierExplainer(model, X_test_mod, y_test)
@@ -212,27 +212,21 @@ def main():
         pie_chart = create_pie_chart(predicted_probs, "New Prediction")
         st.plotly_chart(pie_chart)
         
-        # Traffic light colors for classes
-        # color_map = {
-        #     0: {"background": "#EA324C", "color": "white"},
-        #     1: {"background": "#00B38A", "color": "white"},
-        #     2: {"background": "#F2AC42", "color": "black"}
-        # }
-        # color = color_map.get(predicted_class, {"background": "black", "color": "white"})
-        
-        # st.markdown(f"""
-        # <div style='background-color: {color['background']}; padding: 10px; border-radius: 5px; color: {color['color']};'>
-        #     Predicted class: {class_name} (class {predicted_class})
-        # </div>
-        # """, unsafe_allow_html=True)
-        
         predicted_class = model.predict(X_test_mod.iloc[[index]])[0]
         class_name = label_encoder.classes_[predicted_class]
-        st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
+        color = color_map.get(predicted_class, {"background": "black", "color": "white"})
+        st.markdown(f"""
+        <div style='background-color: {color['background']}; margin-left:20px; margin-right:20px; padding: 10px; border-radius: 5px; color: {color['color']};'>
+            Predicted class: {class_name} (class {predicted_class})
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
         
     
     st.toast('Simulator ready 🕹️', icon="✔️")
-    st.write("\n\n")
+    st.write("\n")
+    st.write("\n")
     st.write("One can see how the output class probabilities change as the attribute values are modified.")
     
     #st.write("\n\n")
