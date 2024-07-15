@@ -30,7 +30,6 @@ def load_model():
     model = load("./random_forest_model.pkl")
     return model
     
-    
 def main():
     df_og, target = load_data()
     label_encoder = LabelEncoder()
@@ -78,32 +77,25 @@ def main():
     
     # Index selector for SHAP contributions
     index = st.sidebar.selectbox("Select a `mother_id` to view the prediction", options=range(len(X_test)))
-    st.write(f"🎗️ Selected *mother_id*: {index}")
+    st.write(f"🧸 **Selected *mother_id*: {index}**")
 
 
     predicted_class = model.predict(X_test.iloc[[index]])[0]
     class_name = label_encoder.classes_[predicted_class]
     
     # Traffic light colors for classes
-    # color_map = {
-    #     0: {"background": "#EA324C", "color": "white"},
-    #     1: {"background": "#00B38A", "color": "white"},
-    #     2: {"background": "#F2AC42", "color": "black"}
-    # }
-    # color = color_map.get(predicted_class, {"background": "black", "color": "white"})
-    
-    # st.markdown(f"""
-    # <div style='background-color: {color['background']}; padding: 10px; border-radius: 5px; color: {color['color']};'>
-    #     Predicted class: {class_name} (class {predicted_class})
-    # </div>
-    # """, unsafe_allow_html=True)
-    
-    get_color = {
-        0: ":red-background",
-        1: ":green-background",
-        2: ":orange-background"
+    color_map = {
+        0: {"background": "#EA324CAA", "color": "white"},
+        1: {"background": "#00B38AAA", "color": "black"},
+        2: {"background": "#F2AC42AA", "color": "black"}
     }
-    st.write(f"{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
+    color = color_map.get(predicted_class, {"background": "black", "color": "white"})
+    
+    st.markdown(f"""
+    <div style='background-color: {color['background']}; padding: 10px; border-radius: 5px; color: {color['color']};'>
+        Predicted class: {class_name} (class {predicted_class})
+    </div>
+    """, unsafe_allow_html=True)
 
     st.write("\n\n")
     

@@ -57,9 +57,7 @@ def create_pie_chart(predictions, title):
             x=0.5
         )
     )
-
     return fig
-    
     
 def main():
     df_og, target = load_data()
@@ -87,12 +85,11 @@ def main():
         "./love.png",
         icon_image="./heartbeat.gif",
     )
-    #st.write("To get a better understanding of the model's decision process, it is necessary to understand both how changing that feature impacts the model’s output, and also the distribution of that feature’s values.")
+    
     st.write("This page allows you to explore the model's predictions by simulating different values.")
     st.warning('''If the mother presents a significant symptom not considered by the model (e.g., stroke symptoms), disregard the model's prediction and
     base the urgency purely on medical judgment.''', icon="⚠️")
     
-    # st.write("This page resembles 'What if... ?' It shows how the model prediction would change based on a change in the attribute values")
     st.write("\n\n")
     st.subheader("What if... ?", anchor="what-if", divider="red")
     st.write("Select a *mother_id* from the sidebar and change the values for the measurements to simulate the health risk prediction. The model prediction will be updated accordingly.")
@@ -114,13 +111,9 @@ def main():
         explainer.dump("./explainer.joblib")
     else:
         explainer = ClassifierExplainer.from_file("./explainer.joblib")
-        
-    # if 'loaded' not in st.session_state:
-    #     st.session_state.loaded = True
-    #     st.session_state.pred_index = {}
     
     index = st.sidebar.selectbox("Select a `mother_id` to view and modify", options=range(len(X_test)))
-    st.write(f"🧸 Selected *mother_id*: {index}")
+    st.write(f"🧸 **Selected *mother_id*: {index}**")
 
     sample = X_test.iloc[index]
     
@@ -160,12 +153,6 @@ def main():
         st.metric(label="**HeartRate** :gray[(bpm)]", value=new_sample['HeartRate'][0], delta=new_sample['HeartRate'][0] - sample['HeartRate'])
         
     st.write("\n\n\n\n")
-
-    # get_color = {
-    #     0: ":red-background",
-    #     1: ":green-background",
-    #     2: ":orange-background"
-    # }
     
     # Traffic light colors for classes
     color_map = {
@@ -175,17 +162,7 @@ def main():
     }
     
     col1, col2 = st.columns(2)
-    with col1:
-        # if index not in st.session_state.pred_index.keys():
-        #     prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
-        #     st.session_state.pred_index[index] = prediction_component
-        #     print(st.session_state.pred_index.keys())
-        # else:
-        #     prediction_component = st.session_state.pred_index[index]
-        # prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
-        # prediction_component_html = prediction_component.to_html()
-        # st.components.v1.html(prediction_component_html, height=560, scrolling=False)
-        
+    with col1: 
         # Use custom pie chart instead of the prediction component
         pie_chart = create_pie_chart(pred_probs[index], "Original Prediction")
         st.plotly_chart(pie_chart)
@@ -199,14 +176,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
         
-        # st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
-        
     with col2: 
-        # explainer = ClassifierExplainer(model, X_test_mod, y_test)
-        # prediction_component = ClassifierPredictionSummaryComponent(explainer, title="New Prediction", index=index, hide_selector=True)
-        # prediction_component_html = prediction_component.to_html()
-        # st.components.v1.html(prediction_component_html, height=560, scrolling=False)
-        
         # Use custom pie chart instead of the prediction component
         if np.array_equal(X_test.iloc[[index]].values, new_sample.iloc[[0]].values):
             predicted_probs = pred_probs[index]
@@ -222,20 +192,13 @@ def main():
         <div style='background-color: {color['background']}; margin-left:20px; margin-right:20px; padding: 10px; border-radius: 5px; color: {color['color']};'>
             Predicted class: {class_name} (class {predicted_class})
         </div>
-        """, unsafe_allow_html=True)
-        
-        # st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
-        
+        """, unsafe_allow_html=True)       
     
     st.toast('Simulator ready 🕹️', icon="✔️")
     st.write("\n")
     st.write("\n")
     st.write("One can see how the output class probabilities change as the attribute values are modified.")
-    
-    #st.write("\n\n")
-    #st.write("### Key Findings")
-    #st.write("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
-       
+     
     
 if __name__ == "__main__":
     main()
