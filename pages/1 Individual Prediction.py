@@ -78,11 +78,9 @@ def main():
     st.warning('''If the mother presents a significant symptom not considered by the model (e.g., stroke symptoms), disregard the model's prediction and
     base the urgency purely on medical judgment.''', icon="⚠️")
 
-    
     # Index selector for SHAP contributions
     index = st.sidebar.selectbox("Select a `mother_id` to view the prediction", options=range(len(X_test)))
     st.write(f"🧸 **Selected *mother_id*: {index}**")
-
 
     predicted_class = model.predict(X_test.iloc[[index]])[0]
     class_name = label_encoder.classes_[predicted_class]
