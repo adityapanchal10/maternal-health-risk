@@ -92,8 +92,6 @@ def main():
     st.warning('''If the mother presents a significant symptom not considered by the model (e.g., stroke symptoms), disregard the model's prediction and
     base the urgency purely on medical judgment.''', icon="⚠️")
     
-
-
     # st.write("This page resembles 'What if... ?' It shows how the model prediction would change based on a change in the attribute values")
     st.write("\n\n")
     st.subheader("What if... ?", anchor="what-if", divider="red")
@@ -102,6 +100,13 @@ def main():
     
     model = load_model()
     model = model.fit(X_train, y_train) 
+    
+    if 'predicted_probs' not in st.session_state:
+        pred_probs = model.predict_proba(X_test)
+        st.session_state.predicted_probs = pred_probs
+        print(pred_probs.shape)
+    else:
+        pred_probs = st.session_state.predicted_probs
     
     if 'explainer' not in st.session_state:
         explainer = ClassifierExplainer(model, X_test, y_test)
@@ -115,7 +120,7 @@ def main():
     #     st.session_state.pred_index = {}
     
     index = st.sidebar.selectbox("Select a `mother_id` to view and modify", options=range(len(X_test)))
-    st.write(f"🎗️ Selected *mother_id*: {index}")
+    st.write(f"🧸 Selected *mother_id*: {index}")
 
     sample = X_test.iloc[index]
     
@@ -137,9 +142,7 @@ def main():
                 new_values[col] = int(sample[col])
     
     # Create a DataFrame with the new values
-    X_test_mod = X_test.copy()
     new_sample = pd.DataFrame([new_values])
-    X_test_mod.iloc[index] = new_sample.loc[0]
     
     # Display the new feature values
     c1, c2, c3, c4, c5, c6 = st.columns(6)
@@ -173,7 +176,6 @@ def main():
     
     col1, col2 = st.columns(2)
     with col1:
-
         # if index not in st.session_state.pred_index.keys():
         #     prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
         #     st.session_state.pred_index[index] = prediction_component
@@ -183,11 +185,9 @@ def main():
         # prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
         # prediction_component_html = prediction_component.to_html()
         # st.components.v1.html(prediction_component_html, height=560, scrolling=False)
-
         
         # Use custom pie chart instead of the prediction component
-        predicted_probs = model.predict_proba(X_test.iloc[[index]])[0]
-        pie_chart = create_pie_chart(predicted_probs, "Original Prediction")
+        pie_chart = create_pie_chart(pred_probs[index], "Original Prediction")
         st.plotly_chart(pie_chart)
         
         predicted_class = model.predict(X_test.iloc[[index]])[0]
@@ -208,11 +208,14 @@ def main():
         # st.components.v1.html(prediction_component_html, height=560, scrolling=False)
         
         # Use custom pie chart instead of the prediction component
-        predicted_probs = model.predict_proba(X_test_mod.iloc[[index]])[0]
+        if np.array_equal(X_test.iloc[[index]].values, new_sample.iloc[[0]].values):
+            predicted_probs = pred_probs[index]
+        else:
+            predicted_probs = model.predict_proba(new_sample.iloc[[0]])[0]
         pie_chart = create_pie_chart(predicted_probs, "New Prediction")
         st.plotly_chart(pie_chart)
         
-        predicted_class = model.predict(X_test_mod.iloc[[index]])[0]
+        predicted_class = model.predict(new_sample.iloc[[0]])[0]
         class_name = label_encoder.classes_[predicted_class]
         color = color_map.get(predicted_class, {"background": "black", "color": "white"})
         st.markdown(f"""
