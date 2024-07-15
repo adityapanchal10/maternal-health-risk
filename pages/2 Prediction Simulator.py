@@ -14,6 +14,8 @@ from explainerdashboard import ClassifierExplainer, ExplainerDashboard
 from explainerdashboard.dashboard_components import *
 from sklearn.preprocessing import LabelEncoder
 import streamlit.components.v1 
+import plotly.graph_objects as go
+import plotly.io as pio
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -29,6 +31,34 @@ def load_data():
 def load_model():
     model = load("./random_forest_model.pkl")
     return model
+
+def create_pie_chart(predictions, title):
+    labels = ['High Risk', 'Low Risk', 'Mid Risk']
+
+    color_map = {
+        0: "#EA324C",
+        1: "#00B38A",
+        2: "#F2AC42"
+    }
+    colors = [color_map[i] for i in range(len(labels))]
+
+    fig = go.Figure(data=[go.Pie(labels=labels, values=predictions, marker=dict(colors=colors), hole=0.4)])
+
+    fig.update_layout(
+        title=title,
+        # height=600,  # increase the height of the chart
+        # width=600,   # increase the width of the chart
+        margin=dict(b=0),  # Reduce the bottom margin. This way we dont have to set the height and wodth 
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=0.0,
+            xanchor="center",
+            x=0.5
+        )
+    )
+
+    return fig
     
     
 def main():
@@ -143,12 +173,15 @@ def main():
         #     print(st.session_state.pred_index.keys())
         # else:
         #     prediction_component = st.session_state.pred_index[index]
-        prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
-        prediction_component_html = prediction_component.to_html()
-        st.components.v1.html(prediction_component_html, height=560, scrolling=False)
+        # prediction_component = ClassifierPredictionSummaryComponent(explainer, title="Original Prediction", index=index, hide_selector=True)
+        # prediction_component_html = prediction_component.to_html()
+        # st.components.v1.html(prediction_component_html, height=560, scrolling=False)
 
-        predicted_class = model.predict(X_test.iloc[[index]])[0]
-        class_name = label_encoder.classes_[predicted_class]
+        
+        # Use custom pie chart instead of the prediction component
+        predicted_probs = model.predict_proba(X_test.iloc[[index]])[0]
+        pie_chart = create_pie_chart(predicted_probs, "Original Prediction")
+        st.plotly_chart(pie_chart)
         
         # Traffic light colors for classes
         # color_map = {
@@ -163,16 +196,21 @@ def main():
         #     Predicted class: {class_name} (class {predicted_class})
         # </div>
         # """, unsafe_allow_html=True)
+        
+        predicted_class = model.predict(X_test.iloc[[index]])[0]
+        class_name = label_encoder.classes_[predicted_class]
         st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
         
     with col2: 
-        explainer = ClassifierExplainer(model, X_test_mod, y_test)
-        prediction_component = ClassifierPredictionSummaryComponent(explainer, title="New Prediction", index=index, hide_selector=True)
-        prediction_component_html = prediction_component.to_html()
-        st.components.v1.html(prediction_component_html, height=560, scrolling=False)
-
-        predicted_class = model.predict(X_test_mod.iloc[[index]])[0]
-        class_name = label_encoder.classes_[predicted_class]
+        # explainer = ClassifierExplainer(model, X_test_mod, y_test)
+        # prediction_component = ClassifierPredictionSummaryComponent(explainer, title="New Prediction", index=index, hide_selector=True)
+        # prediction_component_html = prediction_component.to_html()
+        # st.components.v1.html(prediction_component_html, height=560, scrolling=False)
+        
+        # Use custom pie chart instead of the prediction component
+        predicted_probs = model.predict_proba(X_test_mod.iloc[[index]])[0]
+        pie_chart = create_pie_chart(predicted_probs, "New Prediction")
+        st.plotly_chart(pie_chart)
         
         # Traffic light colors for classes
         # color_map = {
@@ -187,6 +225,9 @@ def main():
         #     Predicted class: {class_name} (class {predicted_class})
         # </div>
         # """, unsafe_allow_html=True)
+        
+        predicted_class = model.predict(X_test_mod.iloc[[index]])[0]
+        class_name = label_encoder.classes_[predicted_class]
         st.write(f"‎ ‎ ‎ ‎{get_color[predicted_class]}[Predicted class: {class_name} (class {predicted_class})]")
         
     
