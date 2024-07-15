@@ -49,6 +49,9 @@ def main():
         y_train = st.session_state.y_train
         X_test = st.session_state.X_test
         y_test = st.session_state.y_test
+        if y_train.dtype == object: # useful if we go to about model first and then come here
+            y_train = label_encoder.transform(y_train)
+            y_test = label_encoder.transform(y_test)
     
     st.header("Individual Prediction", anchor="individual-prediction")
     st.title("Maternal Health Risk Prediction")
@@ -56,6 +59,7 @@ def main():
         "./love.png",
         icon_image="./heartbeat.gif",
     )
+    st.write("This page enables the examination of the prediction and the contribution of each feature to the prediction for an individual sample.")
         
     model = load_model()
     model = model.fit(X_train, y_train)

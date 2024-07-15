@@ -46,8 +46,6 @@ def create_pie_chart(predictions, title):
 
     fig.update_layout(
         title=title,
-        # height=600,  # increase the height of the chart
-        # width=600,   # increase the width of the chart
         margin=dict(b=0),  # Reduce the bottom margin. This way we dont have to set the height and wodth 
         legend=dict(
             orientation="h",
@@ -60,9 +58,8 @@ def create_pie_chart(predictions, title):
     return fig
     
 def main():
-    df_og, target = load_data()
+    df, target = load_data()
     label_encoder = LabelEncoder()
-    df = df_og.copy()
     df[target] = label_encoder.fit_transform(df[target])
     X = df.drop(target, axis=1)
     y = df[target]
@@ -78,6 +75,9 @@ def main():
         y_train = st.session_state.y_train
         X_test = st.session_state.X_test
         y_test = st.session_state.y_test
+        if y_train.dtype == object: # useful if we go to about model first and then come here
+            y_train = label_encoder.transform(y_train)
+            y_test = label_encoder.transform(y_test)
     
     st.header("Prediction Simulator", anchor="prediction-simulator")
     st.title("Maternal Health Risk Prediction")

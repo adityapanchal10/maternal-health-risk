@@ -33,24 +33,18 @@ def main():
         "./love.png",
         icon_image="./heartbeat.gif",
     )
+    st.write("This page offers comprehensive details about the dataset, such as the distribution of its attributes and method of data collection.")
     st.write("\n\n\n")
 
     st.write("""Data was collected from five hospitals and one maternity clinic in Dhaka, Bangladesh.
     Patient health data was collected using wearable sensor devices, and risk levels were classified with the help of medical experts and literature review.
     """)
 
-    # Add DOI link to sidebar
-    # st.write(
-    #     """
-    #     **DOI**: [10.24432/C5DP5D](https://archive.ics.uci.edu/dataset/863/maternal+health+risk)
-    #     """
-    # )
     st.write("[![10.24432/C5DP5D](https://img.shields.io/badge/doi-10.3389%2Ffcomp.2021.734559-blue)](https://doi.org/10.24432/C5DP5D)")
     
     st.write("**Author**: Marzia Ahmed")
     st.write("**Dataset donated on**: 14.08.2023")
 
-    
     # Load Dataset
     df, target = load_data()
 
@@ -81,7 +75,6 @@ def main():
     st.write("""Below you can find the dataset used in this application.
     You can filter the data using the Selection & Filter Options on the sidebar.""")
     st.dataframe(filtered_df)
-
 
     # Display Attribute Distribution
     st.write("\n\n\n")

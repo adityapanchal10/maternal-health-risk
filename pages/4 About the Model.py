@@ -180,6 +180,7 @@ def get_fairness():
 
     st.write("False Positive Error Rate measures the proportion of negative cases that are incorrectly classified as positive. In other words, it tells you how often a model incorrectly predicts the positive class for cases that should be in the negative class.")
     st.write("We would like to analyze if any age group is favored by having a higher FPR than the other, thus predicting it more often to be prone to other types risks even though they are not.")
+    st.toast("Fairness metrics loaded !!", icon="✔️")
     
 def main():
     st.header("About the Model", anchor="model")
@@ -188,6 +189,7 @@ def main():
         "./love.png",
         icon_image="./heartbeat.gif",
     )
+    st.write("This page provides information about the model used for prediction, its performance, and the feature importance alongwith information regarding the model's fairness.")
     st.write("\n\n")
     
     tab1, tab2 = st.tabs(["**Model Training and Evaluation**", "**Model Fairness**"])
