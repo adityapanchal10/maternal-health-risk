@@ -169,7 +169,7 @@ def get_fairness():
     fpr_teenager = ff.fp_error_rate_balance(df_test, "AgeGroupEncoded", 2, "Prediction", "TrueLabel")
 
     st.write("\n\n\n")
-    st.subheader("False Positive Error Rate", anchor="fpr", divider="red")
+    st.subheader("3. False Positive Error Rate", anchor="fpr", divider="red")
     fpr_df = pd.DataFrame({
         "Age Group": ["Teenager", "Adult", "Advanced Maternal Age"],
         "False Positive Rate (FPR)": [f"{fpr_teenager*100:.2f}%", f"{fpr_adult*100:.2f}%", f"{fpr_adv_age*100:.2f}%"]

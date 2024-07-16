@@ -3,8 +3,8 @@ import streamlit as st
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 def main():
-    st.header("Key Takeaways", anchor="coclusion")
-    st.title("Maternal Health Risk Prediction")
+    st.header("Key Takeaways", anchor="conclusion")
+    st.title("HealthyMom App")
     st.logo(
         "./love.png",
         icon_image="./heartbeat.gif",
@@ -19,17 +19,15 @@ def main():
     st.write("- Possibility to utilize the app to understand how different health features impact maternal risk predictions.")
     st.write("- It could be beneficial for healthcare professionals who want to explore and validate model predictions by modifying input features using the Prediction Simulator.")
     st.write("**3. Educational Purposes:**")
-    st.write("The app could be a valuable educational tool for data science students to learn about predictive modeling and explanation user interface")
+    st.write("- The app could be a valuable educational tool for data science students to learn about predictive modeling and explanation user interface")
    
     st.write("\n\n\n")
     st.subheader("When NOT to use the app?", divider="red")
     st.write("**1. Non-Predicted Medical Conditions:**")
-    st.write("- Avoid relying on the app for conditions or symptoms not covered by the model (e.g., stroke symptoms). In such cases, base urgency on professional medical judgment alone.")
+    st.write("- Do not rely on the app for conditions or symptoms not covered by the model (e.g., stroke symptoms). In such cases, base urgency on professional medical judgment alone.")
     st.write("**2. Overriding Medical Expertise:**")
     st.write("- Do not use the app to override the expertise of healthcare professionals. The app could be a support tool for triage, not a definitive diagnostic tool. Ensure that final decisions regarding patient care are made by qualified medical personnel, taking into account all clinical findings and patient history.")
-    st.write("**3. Emergency Situations:**")
-    st.write("- The app is not a substitute for professional medical advice. In emergency situations, always rely on medical professionals for guidance.")
-    st.write("**4. Limited Data Scenarios:**")
+    st.write("**3. Limited Data Scenarios:**")
     st.write("- Be cautious when using the app in scenarios with data that significantly deviates from the training dataset (e.g., different demographics or health conditions not represented in the data from Dhaka, Bangladesh). A comprehensive evaluation by a data scientist should be performed before using the application in a medical setting.")
     
     st.write("\n\n\n")
