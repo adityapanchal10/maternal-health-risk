@@ -40,10 +40,10 @@ pip install -r requirements.txt
 
 #### 🚀 Run the Application
 
-Navigate to the directory containing '**Home.py**' and execute the following command:
+Navigate to the directory containing '**0_Home.py**' and execute the following command:
 
 ```sh
-streamlit run Home.py
+streamlit run 0_Home.py
 ```
 
 Once the application is running, you can access it in your web browser by navigating to http://localhost:8501. This will allow you to interact with the HealthyMom app, explore its features, and analyze the predictions and contributions of each feature to the predictions for individual samples.
