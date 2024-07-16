@@ -142,7 +142,7 @@ def get_fairness():
     st.write("Group fairness aims to ensure that certain desirable properties or outcomes are evenly distributed among groups defined by sensitive attributes, such as age, gender, race, or socioeconomic status. For the sake of this project, we assumed age to be the sensitive attribute. Each group need to have the same probability of being assigned to the predicted class.")
     st.write("For example, if we investigate the 'Age Group' then all groups, protected and unprotected should ideally have the same probability to receive a high risk, mid risk, and low risk prediction. Mathematically this is stated as followed:")
     st.write(r"$P(RiskPrediction = high \vert Age Group = Advanced Maternal Age) == P(RiskPrediction = high \vert Age Group = Adult)$")
-    st.write("However, as demonstrated in the table above, the groups exhibit varying values. This discrepancy is understandable, given that the assumption of age as a sensitive attribute is not entirely viable, since pregnancy is indeed age-dependent [cite some paper(s) here if time].")
+    st.markdown("However, as demonstrated in the table above, the groups exhibit varying values. This discrepancy is understandable, given that the assumption of age as a sensitive attribute is not entirely viable, since some pregnancy related risks are indeed age-dependent <sup>[1](https://academic.oup.com/humupd/article/4/2/185/727649), [2](https://obgyn.onlinelibrary.wiley.com/doi/full/10.1002/uog.12494)</sup>.", unsafe_allow_html=True)
     st.write("Hence, this does not necessarily indicate bias, as such variations are inherent in nature.")
 
     # Predictive Parity

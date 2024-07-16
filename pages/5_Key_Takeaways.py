@@ -32,8 +32,12 @@ def main():
     
     st.write("\n\n\n")
     st.subheader("References / Acknowledgements", divider="red")
-    st.write("1. **Dataset:** Marzia Ahmed, 14.08.2023, [10.24432/C5DP5D](https://doi.org/10.24432/C5DP5D)")
-    st.write("2. Oege Dijk, oegesam, Ray Bell, Lily, Simon-Free, Brandon Serna, rajgupt, et al. **“Oegedijk/explainerdashboard: Explainerdashboard 0.4.2: Dtreeviz V2 Compatiblity”**. Zenodo, February 12, 2023. https://doi.org/10.5281/zenodo.7633294.")
+    st.write("1. Van Katwijk, Cornelis, and Louis LH Peeters. “*Clinical aspects of pregnancy after the age of 35 years: a review of the literature.*” Human reproduction update 4, no. 2 (1998): 185-194.")
+    st.write("2. Khalil, Asma, Argyro Syngelaki, Nerea Maiz, Yana Zinevich, and Kypros H. Nicolaides. “*Maternal age and adverse pregnancy outcome: a cohort study.*” Ultrasound in Obstetrics & Gynecology 42, no. 6 (2013): 634-643.")
+    st.write("3. **Dataset:** Marzia Ahmed, 14.08.2023, [10.24432/C5DP5D](https://doi.org/10.24432/C5DP5D)")
+    st.write("4. Oege Dijk, oegesam, Ray Bell, Lily, Simon-Free, Brandon Serna, rajgupt, et al. “*Oegedijk/explainerdashboard: Explainerdashboard 0.4.2: Dtreeviz V2 Compatiblity*”. Zenodo, February 12, 2023. https://doi.org/10.5281/zenodo.7633294.")
+    st.write("5. https://christophm.github.io/interpretable-ml-book/shap.html")
+    st.write("6. https://christophm.github.io/interpretable-ml-book/shapley.html")
     
 if __name__ == "__main__":
     main()
