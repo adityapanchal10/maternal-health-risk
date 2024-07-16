@@ -1,6 +1,4 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
 
 # Set page configuration
 st.set_page_config(
@@ -8,11 +6,6 @@ st.set_page_config(
     layout="centered", #centered #wide
     initial_sidebar_state="auto", #collapsed
 )
-
-# Load the Data set
-df = pd.read_csv("./Maternal Health Risk Data Set.csv")
-
-# st.markdown("## Home")
 
 # Main page title and welcome message
 st.title("Welcome to HealthyMom App")
@@ -31,26 +24,11 @@ ensuring that expectant mothers receive the appropriate level of care quickly an
 # Display image on Home
 st.image("./MomArt.jpeg", use_column_width=True)
 
-# Sidebar Content
-# st.sidebar.markdown("---")
-# with stylable_container(
-#     key="siderbar-footnote",
-#     css_styles="""
-#         {
-#             position: fixed;
-#             bottom: 0;
-#             width: 100%;           
-#         }
-#         """
-# ):
 st.sidebar.header("\n")
 st.sidebar.subheader("App Developers:", divider="red")
 st.sidebar.write("Aditya Panchal")
 st.sidebar.markdown("Mariana Steffens")
 st.sidebar.markdown("Navya Reddy Tiyyagura")
 st.sidebar.markdown("Se Yeon Kim")
-#st.sidebar.markdown("---")
-st.sidebar.markdown("##### App developed as part of the Human Centered Data Science course at the Freie Universität Berlin")
-st.sidebar.markdown("##### 02.07.2024")
-
-# badge(type="github", name="adityapanchal10/maternal-risk-app", url="https://github.com/adityapanchal10/maternal-risk-app")
+st.sidebar.markdown("##### :gray[App developed as part of the Human Centered Data Science course during SoSe-24 at the Freie Universität Berlin]")
+st.sidebar.markdown("##### :gray[16.07.2024]")
