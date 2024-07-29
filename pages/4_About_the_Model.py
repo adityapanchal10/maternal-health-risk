@@ -18,7 +18,7 @@ import streamlit.components.v1
 from sklearn.multiclass import OneVsRestClassifier
 import fairness_functions as ff
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+# st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Load dataset
 @st.cache_data

@@ -9,7 +9,7 @@ from sklearn.kernel_ridge import KernelRidge
 from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+# st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Set page configuration
 st.set_page_config(

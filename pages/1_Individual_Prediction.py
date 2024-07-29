@@ -15,7 +15,7 @@ from explainerdashboard.dashboard_components import ImportancesComponent, ShapCo
 from sklearn.preprocessing import LabelEncoder
 import streamlit.components.v1 
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+# st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Load dataset
 @st.cache_data

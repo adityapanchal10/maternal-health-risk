@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+# st.set_option('deprecation.showPyplotGlobalUse', False)
 
 def main():
     st.header("Key Takeaways", anchor="conclusion")

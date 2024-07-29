@@ -17,7 +17,7 @@ import streamlit.components.v1
 import plotly.graph_objects as go
 import plotly.io as pio
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+# st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Load dataset
 @st.cache_data
